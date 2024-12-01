@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'com.github.davidmc24.gradle.plugin.avro' version '1.5.0' // Avro Plugin
+}
+
+group = 'com.tibell.avro'
+version = '0.1.0'
+
+dependencies {
+    implementation 'org.apache.avro:avro:1.11.2' // Avro dependency
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+}
+
+avro {
+    stringType = 'String' // Ensures Avro strings are Java Strings (not Utf8)
+    fieldVisibility = 'PRIVATE' // Encapsulation for fields
+}
+
+tasks.named('compileJava') {
+    dependsOn 'generateAvroJava'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', "$buildDir/generated-sources/avro"]
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
