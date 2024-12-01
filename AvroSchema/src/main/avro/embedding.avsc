@@ -1,0 +1,11 @@
+{
+  "type": "record",
+  "name": "Embedding",
+  "namespace": "com.tibell.avro",
+  "fields": [
+    {"name": "id", "type": "string"},
+    {"name": "title", "type": "string"},
+    {"name": "description", "type": "string"},
+    {"name": "embeddings", "type": { "type": "array", "items": "double", "defauilt": [] }}
+  ]
+}
